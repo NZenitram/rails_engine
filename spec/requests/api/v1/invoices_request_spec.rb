@@ -28,4 +28,12 @@ describe 'invoice endpoint' do
       expect(invoice.first[1]).to eq(Invoice.first.id)
     end
   end
+
+  context 'GET a invoice by parameter' do
+    it 'returns and invoice' do
+      create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
+
+      get "api/v1/invoices/find?id=#{Invoice.first.id}"
+    end
+  end
 end
