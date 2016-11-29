@@ -29,4 +29,16 @@ describe 'customer endpoint' do
       expect(customer.first[1]).to eq(Customer.first.id)
     end
   end
+
+  context "GET a customer by ID" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find?id=#{Customer.first.id}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first[1]).to eq(Customer.first.id)
+    end
+  end
 end
