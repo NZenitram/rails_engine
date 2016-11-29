@@ -33,7 +33,25 @@ describe 'invoice endpoint' do
     it 'returns and invoice' do
       create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
 
-      get "api/v1/invoices/find?id=#{Invoice.first.id}"
+      get "/api/v1/invoices/find?id=#{Invoice.first.id}"
+
+      invoices = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoices.first[1]).to eq(Invoice.first.id)
+    end
+  end
+
+  context 'GET invoices by attribute' do
+    it 'returns invoices' do
+      create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
+
+      get '/api/v1/invoices/find_all?status=shipped'
+
+      invoices = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoices.count).to eq(3)
     end
   end
 end
