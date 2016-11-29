@@ -15,6 +15,7 @@ describe 'items endpoint' do
       expect(response).to be_success
       expect(items.count).to eq(3)
     end
+  end
 
   context 'GET a item' do
     it 'returns an item' do
@@ -28,5 +29,37 @@ describe 'items endpoint' do
 
     end
   end
+
+  context 'GET a item by attribute' do
+    it 'returns an item' do
+      create_list(:item, 3, merchant_id: Merchant.first.id)
+
+      get "/api/v1/items/find?name=#{Item.first.created_at}"
+      get "/api/v1/items/find?name=#{Item.first.name}"
+
+      item = JSON.parse(response.body)
+      expect(response).to be_success
+      expect(item["name"]).to eq(Item.first.name)
+
+
+      get "/api/v1/items/find?id=#{Item.first.id}"
+      item = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(item.first[1]).to eq(Item.first.id)
+    end
+  end
+
+  context 'GET items by attribute' do
+    it 'returns items' do
+      create_list(:item, 3, merchant_id: Merchant.first.id)
+
+      get '/api/v1/items/find_all?name=Frank'
+
+      items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(items.count).to eq(3)
+    end
   end
 end
