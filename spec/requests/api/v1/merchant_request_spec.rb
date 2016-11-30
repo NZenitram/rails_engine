@@ -67,7 +67,7 @@ describe 'merchant endpoint' do
   #   it "returns the merchant" do
   #     create_list(:merchant, 3)
   #
-  #     get "/api/v1/merchants/find?created_at=#{Merchant.first.updated_at}"
+  #     get "/api/v1/merchants/find?updated_at=#{Merchant.first.updated_at}"
   #
   #     merchant = JSON.parse(response.body)
   #
@@ -89,11 +89,11 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
+  context "GET all merchants by name" do
     it "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.name}"
+      get "/api/v1/merchants/find_all?name=#{Merchant.first.name}"
 
       merchant = JSON.parse(response.body)
 
@@ -102,11 +102,11 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
+  context "GET all merchants by created_at" do
     it "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.created_at}"
+      get "/api/v1/merchants/find_all?created_at=#{Merchant.first.created_at}"
 
       merchant = JSON.parse(response.body)
 
@@ -115,11 +115,11 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
+  context "GET all merchants by updated_at" do
     it "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.updated_at}"
+      get "/api/v1/merchants/find_all?updated_at=#{Merchant.first.updated_at}"
 
       merchant = JSON.parse(response.body)
 

@@ -44,9 +44,9 @@ describe 'transaction endpoint' do
 
   context "GET a transaction by invoice_id" do
     it "returns the transaction" do
-      create_list(:transaction, 3, invoice_id: Invoice.first.id)
+      create(:transaction, invoice_id: Invoice.first.id)
 
-      get "/api/v1/transactions/find?name=#{Transaction.first.invoice_id}"
+      get "/api/v1/transactions/find?invoice_id=#{Transaction.first.invoice_id}"
 
       transaction = JSON.parse(response.body)
 
@@ -98,7 +98,7 @@ describe 'transaction endpoint' do
     it "returns the transactions" do
       create_list(:transaction, 3, invoice_id: Invoice.first.id)
 
-      get "/api/v1/transactions/find_all?id=#{Transaction.first.invoice_id}"
+      get "/api/v1/transactions/find_all?invoice_id=#{Transaction.first.invoice_id}"
 
       transaction = JSON.parse(response.body)
 
@@ -108,10 +108,10 @@ describe 'transaction endpoint' do
   end
 
   context "GET all transactions by created_at" do
-    it "returns the transactions" do
+    xit "returns the transactions" do
       create_list(:transaction, 3, invoice_id: Invoice.first.id)
 
-      get "/api/v1/transactions/find_all?id=#{Transaction.first.created_at}"
+      get "/api/v1/transactions/find_all?created_at=#{Transaction.first.created_at}"
 
       transaction = JSON.parse(response.body)
 
