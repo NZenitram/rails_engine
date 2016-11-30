@@ -58,14 +58,26 @@ describe 'invoice endpoint' do
       create_list(:invoice, 3, customer_id: Customer.first.id)
 
 
-      get "/api/v1/invoices/#{Customer.first.id}/customers"
+      get "/api/v1/invoices/#{Invoice.first.id}/customer"
 
       customers = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customers.count).to eq(3)
+      expect(customers["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
-  # context 'GET customers associated with invoice' do
+  context 'GET merchants associated with invoice' do
+    it 'returns a list of all merchants' do
+      create_list(:merchant, 3)
+      create_list(:invoice, 3, merchant_id: Merchant.first.id)
+
+      get "/api/v1/invoices/#{Invoice.first.id}/merchant"
+
+      merchants = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(merchants["name"]).to eq(Merchant.first.name)
+    end
+  end
 end
