@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       namespace :merchants do
         get '/find', to: 'search#show'
         get '/find_all', to: 'search#index'
+        get '/:id/items', to: 'items#index'
+        get '/:id/invoices', to: 'invoices#index'
       end
       resources :merchants, only: [:index, :show]
 
@@ -37,12 +39,15 @@ Rails.application.routes.draw do
       namespace :transactions do
         get '/find', to: 'search#show'
         get '/find_all', to: 'search#index'
+        get '/:id/invoice', to: 'invoices#index'
       end
       resources :transactions, only: [:index, :show]
 
       namespace :customers do
         get '/find', to: 'search#show'
         get '/find_all', to: 'search#index'
+        get '/:id/invoices', to: 'invoices2#index'
+        get '/:id/transactions', to: 'transactions2#index'
       end
       resources :customers, only: [:index, :show]
 
