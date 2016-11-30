@@ -24,9 +24,8 @@ describe 'customer endpoint' do
       get "/api/v1/customers/#{Customer.first.id}"
 
       customer = JSON.parse(response.body)
-
       expect(response).to be_success
-      expect(customer.first[1]).to eq(Customer.first.id)
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -38,7 +37,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.first[1]).to eq(Customer.first.id)
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
     end
   end
   context "GET a customer by first_name" do
@@ -49,7 +48,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.first[1]).to eq(Customer.first.id)
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
     end
   end
   context "GET a customer by last_name" do
@@ -72,7 +71,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.first[1]).to eq(Customer.first.id)
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -84,7 +83,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.first["id"]).to eq(Customer.first.id)
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -96,7 +95,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.count).to eq(4)
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -108,7 +107,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.count).to eq(4)
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -120,7 +119,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.count).to eq(4)
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 
@@ -132,7 +131,7 @@ describe 'customer endpoint' do
       customer = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(customer.count).to eq(4)
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 end
