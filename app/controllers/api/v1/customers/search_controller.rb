@@ -1,7 +1,9 @@
 class Api::V1::Customers::SearchController < ApplicationController
 
   def index
+    byebug
     render json: Customer.where(customer_params)
+
   end
 
   def show
