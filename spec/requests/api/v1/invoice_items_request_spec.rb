@@ -30,4 +30,29 @@ describe 'invoice_items endpoint' do
       expect(invoice_items.first[1]).to eq(InvoiceItem.first.id)
     end
   end
+
+  context 'GET a invoice_item by attribute' do
+    it 'returns an invoice_item' do
+      create_list(:invoice_item, 3, item_id: Item.first.id, invoice_id: Invoice.first.id)
+
+      get "/api/v1/invoice_items/find?quantity=#{InvoiceItem.first.quantity}"
+
+      invoice_items = JSON.parse(response.body)
+      expect(response).to be_success
+      expect(invoice_items["quantity"]).to eq(InvoiceItem.first.quantity)
+    end
+  end
+
+  context 'GET invoice_items by attribute' do
+    it 'returns invoice_items' do
+      create_list(:invoice_item, 3, item_id: Item.first.id, invoice_id: Invoice.first.id)
+
+      get '/api/v1/invoice_items/find_all?quantity=5'
+
+      items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(items.count).to eq(3)
+    end
+  end
 end

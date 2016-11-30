@@ -24,9 +24,114 @@ describe 'customer endpoint' do
       get "/api/v1/customers/#{Customer.first.id}"
 
       customer = JSON.parse(response.body)
+      expect(response).to be_success
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET a customer by ID" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find?id=#{Customer.first.id}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+  context "GET a customer by first_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find?id=#{Customer.first.first_name}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+  context "GET a customer by last_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find?id=#{Customer.first.last_name}"
+
+      customer = JSON.parse(response.body)
 
       expect(response).to be_success
       expect(customer.first[1]).to eq(Customer.first.id)
+    end
+  end
+
+  context "GET a customer by first_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find?id=#{Customer.first.first_name}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET all customers by first_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find_all?id=#{Customer.first.id}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET all customers by first_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find_all?id=#{Customer.first.first_name}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET all customers by last_name" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find_all?id=#{Customer.first.last_name}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET all customers by created_at" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find_all?id=#{Customer.first.created_at}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
+  context "GET all customers by updated_at" do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/find_all?id=#{Customer.first.updated_at}"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
 end

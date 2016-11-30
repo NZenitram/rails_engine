@@ -3,6 +3,6 @@ FactoryGirl.define do
     credit_card_number 1234567890
     credit_card_expiration_date Date.today
     result "success"
-
+    invoice
   end
 end
