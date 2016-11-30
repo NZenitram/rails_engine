@@ -81,7 +81,7 @@ describe 'customer endpoint' do
       get "/api/v1/customers/find_all?id=#{Customer.first.id}"
 
       customer = JSON.parse(response.body)
-
+      
       expect(response).to be_success
       expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
