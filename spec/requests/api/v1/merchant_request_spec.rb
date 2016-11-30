@@ -127,4 +127,21 @@ describe 'merchant endpoint' do
       expect(merchant.count).to eq(3)
     end
   end
+
+  context "GET total revenue for a merchant" do
+    it "returns total_revenue" do
+      create(:merchant)
+      create_list(:invoice, 3, merchant_id: Merchant.first.id)
+      create(:transaction, invoice_id: Invoice.first.id, result: "success")
+      create(:transaction, invoice_id: Invoice.second.id, result: "success")
+      create(:transaction, invoice_id: Invoice.last.id, result: "failed")
+      create_list(:invoice_item, 3, unit_price: 5, quantity: 1 )
+
+      get "/api/v1/merchants/#{Merchant.first.id}/revenue"
+
+      merchant = JSON.parse(response.body)
+
+      expect(response).to be_success
+    end
+  end
 end
