@@ -3,5 +3,6 @@ FactoryGirl.define do
     name "Frank"
     description "Jam"
     unit_price 15
+    merchant
   end
 end

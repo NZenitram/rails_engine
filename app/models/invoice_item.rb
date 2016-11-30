@@ -1,4 +1,4 @@
 class InvoiceItem < ApplicationRecord
-  has_many :invoices
-  has_many :items
+  belongs_to :invoice
+  belongs_to :item
 end
