@@ -12,7 +12,7 @@ class Merchant < ApplicationRecord
    else
      invoices.joins(:transactions, :invoice_items).merge(Transaction.successful).sum("invoice_items.quantity * invoice_items.unit_price")
    end
-  end
+ end
 
   def favorite_customer
     customers.joins(:transactions).merge(Transaction.successful).group(:id).order("count(customers.id) DESC").first

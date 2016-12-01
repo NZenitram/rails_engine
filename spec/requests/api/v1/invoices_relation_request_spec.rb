@@ -38,7 +38,7 @@ describe 'invoice endpoint' do
 
   context 'GET items associated with invoice' do
     it 'returns a list of all transactions' do
-      create_list(:invoice, 3)
+      create_list(:invoice, 3, merchant_id: Merchant.first.id )
       create_list(:item, 3)
       create_list(:invoice_item, 3, invoice_id: Invoice.first.id, item_id: Item.first.id)
 
@@ -49,6 +49,7 @@ describe 'invoice endpoint' do
 
       expect(response).to be_success
       expect(items.count).to eq(3)
+      expect(Invoice.first.merchant_id).to eq(Merchant.first.id)
     end
   end
 
