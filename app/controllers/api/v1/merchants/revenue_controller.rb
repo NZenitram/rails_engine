@@ -4,4 +4,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
     render json: Merchant.find(params[:id]).total_revenue(params[:date]), serializer: MerchantrevenueSerializer
   end
 
+  def show
+  end
+
 end
