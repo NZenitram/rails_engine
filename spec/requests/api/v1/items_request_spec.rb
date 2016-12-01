@@ -62,4 +62,43 @@ describe 'items endpoint' do
       expect(items.count).to eq(3)
     end
   end
+
+  context 'GET items by revenue' do
+    it 'returns items by revenue' do
+      create_list(:item, 3)
+      create_list(:invoice, 3)
+      create(:transaction, result: 'success', invoice_id: Invoice.first.id)
+      create(:transaction, result: 'success', invoice_id: Invoice.last.id)
+      create(:invoice_item, invoice_id: Invoice.first.id, item_id: Item.first.id, quantity: 15, unit_price: 5)
+      create(:invoice_item, invoice_id: Invoice.second.id, item_id: Item.first.id, quantity: 15, unit_price: 5)
+      create(:invoice_item, invoice_id: Invoice.last.id, item_id: Item.last.id, quantity: 12, unit_price: 2)
+
+      get '/api/v1/items/most_revenue?quantity=2'
+
+      items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(items.count).to eq(2)
+    end
+  end
+
+  context 'GET items by quantity sold' do
+    it 'returns items by revenue' do
+      create_list(:item, 3)
+      create_list(:invoice, 3)
+      create(:transaction, result: 'success', invoice_id: Invoice.first.id)
+      create(:transaction, result: 'success', invoice_id: Invoice.last.id)
+      create(:invoice_item, invoice_id: Invoice.first.id, item_id: Item.first.id, quantity: 15, unit_price: 5)
+      create(:invoice_item, invoice_id: Invoice.last.id, item_id: Item.last.id, quantity: 12, unit_price: 2)
+      create(:invoice_item, invoice_id: Invoice.last.id, item_id: Item.second.id, quantity: 1, unit_price: 2)
+
+      get '/api/v1/items/most_items?quantity=2'
+
+      items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(items.count).to eq(2)
+      expect(items.first["id"]).to eq(Item.first.id)
+    end
+  end
 end

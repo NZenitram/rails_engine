@@ -32,4 +32,20 @@ describe 'customer endpoint' do
       expect(transactions.count).to eq(3)
     end
   end
+
+  context 'GET a cusomters favorite merchant' do
+    it 'returns a customers favorit marchant' do
+      create_list(:merchant, 3)
+      create_list(:customer, 2)
+      create_list(:invoice, 2, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
+      create_list(:transaction, 3, invoice_id: Invoice.first.id)
+      create(:invoice, customer_id: Customer.first.id, merchant_id: Merchant.last.id)
+
+      get "/api/v1/customers/#{Customer.first.id}/favorite_merchant"
+
+      favorite_merchant = JSON.parse(response.body)
+
+
+    end
+  end
 end
