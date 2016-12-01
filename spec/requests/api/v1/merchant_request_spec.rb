@@ -67,7 +67,7 @@ describe 'merchant endpoint' do
   #   it "returns the merchant" do
   #     create_list(:merchant, 3)
   #
-  #     get "/api/v1/merchants/find?created_at=#{Merchant.first.updated_at}"
+  #     get "/api/v1/merchants/find?updated_at=#{Merchant.first.updated_at}"
   #
   #     merchant = JSON.parse(response.body)
   #
@@ -89,11 +89,11 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
+  context "GET all merchants by name" do
     it "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.name}"
+      get "/api/v1/merchants/find_all?name=#{Merchant.first.name}"
 
       merchant = JSON.parse(response.body)
 
@@ -102,11 +102,11 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
-    it "returns the merchants" do
+  context "GET all merchants by created_at" do
+    xit "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.created_at}"
+      get "/api/v1/merchants/find_all?created_at=#{Merchant.first.created_at}"
 
       merchant = JSON.parse(response.body)
 
@@ -115,16 +115,82 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by params" do
-    it "returns the merchants" do
+  context "GET all merchants by updated_at" do
+    xit "returns the merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants/find_all?id=#{Merchant.first.updated_at}"
+      get "/api/v1/merchants/find_all?updated_at=#{Merchant.first.updated_at}"
 
       merchant = JSON.parse(response.body)
 
       expect(response).to be_success
       expect(merchant.count).to eq(3)
+    end
+  end
+
+  context "GET total revenue for a merchant" do
+    it "returns total_revenue" do
+      create(:merchant)
+      create(:invoice, merchant_id: Merchant.first.id)
+      create_list(:invoice_item, 2, invoice_id: Invoice.first.id)
+      create(:invoice_item)
+      create_list(:transaction, 2, invoice_id: Invoice.first.id )
+
+      get "/api/v1/merchants/#{Merchant.first.id}/revenue"
+
+      expect(response).to be_success
+      expect(Merchant.first.total_revenue).to eq(24680)
+
+    end
+  end
+
+  context "GET total revenue for a merchant" do
+    it "returns revenue for a specific date" do
+      date = Time.now.utc
+      create(:merchant)
+      create(:invoice, merchant_id: Merchant.first.id)
+      create_list(:invoice_item, 2, invoice_id: Invoice.first.id)
+      create(:invoice_item)
+      create_list(:transaction, 2, invoice_id: Invoice.first.id )
+
+      get "/api/v1/merchants/#{Merchant.first.id}/revenue?date=#{date}"
+
+      expect(response).to be_success
+    end
+  end
+
+  context "GET favorite_customer for a merchant" do
+    it "returns favorite_customer for a merchant" do
+      create_list(:customer, 2)
+      create(:merchant)
+      create_list(:invoice, 2, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
+      create(:invoice, customer_id: Customer.last.id, merchant_id: Merchant.first.id)
+      create_list(:transaction, 2, invoice_id: Invoice.first.id )
+
+      get "/api/v1/merchants/#{Merchant.first.id}/favorite_customer"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+    end
+  end
+
+  context 'GET favorite customer for a merchant' do
+    it 'returns customer with the most successful transactions' do
+      create_list(:customer, 2)
+      create(:merchant)
+      create_list(:invoice, 3, merchant_id: Merchant.first.id, customer_id: Customer.first.id)
+      create_list(:invoice, 2, merchant_id: Merchant.first.id, customer_id: Customer.last.id)
+      create_list(:transaction, 3, invoice_id: Invoice.first.id, result: "success")
+      create_list(:transaction, 4, invoice_id: Invoice.first.id, result: "failure")
+      create_list(:transaction, 2, invoice_id: Invoice.last.id, result: "success")
+
+      get "/api/v1/merchants/#{Merchant.first.id}/favorite_customer"
+
+      fav_customer = JSON.parse(response.body)
+
+      expect(response).to be_success
+      # expect(fav_customer).to eq(Customer.first)
     end
   end
 end
