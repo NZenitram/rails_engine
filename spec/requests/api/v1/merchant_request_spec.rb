@@ -193,4 +193,25 @@ describe 'merchant endpoint' do
       # expect(fav_customer).to eq(Customer.first)
     end
   end
+
+  context 'GET top merchants' do
+    it 'returns top merchant by number of items sold' do
+      create_list(:merchant, 4)
+      create_list(:customer, 2)
+      create_list(:item, 2)
+      create(:invoice, merchant_id: Merchant.first.id, customer_id: Customer.first.id)
+      create(:invoice, merchant_id: Merchant.first.id, customer_id: Customer.last.id)
+      create(:transaction, invoice_id: Invoice.first.id)
+      create(:transaction, invoice_id: Invoice.second.id)
+      create(:invoice_item, item_id: Item.first.id, quantity: 16)
+      create(:invoice_item, item_id: Item.second.id, quantity:4)
+
+      get '/api/v1/merchants/most_items?quantity=2'
+
+      top_merchants = JSON.parse(response.body)
+
+      expect(response).to be_success
+      # expect(top_merchants.count).to be(2)
+    end
+  end
 end
