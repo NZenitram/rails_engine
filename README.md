@@ -17,6 +17,11 @@ Our learning goals for this project were:
 
 ` $ bundle install `
 
+## Create The Database
+` $ rake db:create`
+
+` $ rake db:migrate`
+
 ## Seed The Database
 
 `$ rake seed_data`
