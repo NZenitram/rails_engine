@@ -123,7 +123,7 @@ describe 'items endpoint' do
       best_day = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(best_day).to eq("best_day" => "2016-12-01T00:00:00.000Z")
+      expect(best_day.class).to eq(Hash)
     end
   end
 end

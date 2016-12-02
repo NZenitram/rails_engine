@@ -53,10 +53,11 @@ Rails.application.routes.draw do
       resources :transactions, only: [:index, :show]
 
       namespace :customers do
-        get '/find', to: 'search#show'
-        get '/find_all', to: 'search#index'
-        get '/:id/invoices', to: 'invoices2#index'
-        get '/:id/transactions', to: 'transactions2#index'
+        get '/find',                  to: 'search#show'
+        get '/find_all',              to: 'search#index'
+        get 'random',                 to: 'random#show'
+        get '/:id/invoices',          to: 'invoices2#index'
+        get '/:id/transactions',      to: 'transactions2#index'
         get '/:id/favorite_merchant', to: 'favorite_merchant#show'
       end
       resources :customers, only: [:index, :show]
