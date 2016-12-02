@@ -1,8 +1,7 @@
 # Rails Engine
-A stores API
 
 ## Project Overview
-Rails Engine is our first project for the 3rd module at Turing School of Software and Design.
+Rails Engine is online stores API we built as a project for the 3rd module at Turing School of Software and Design. 
 Our learning goals for this project were:
 
 * To build a versioned API with single responsability controllers
