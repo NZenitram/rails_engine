@@ -32,7 +32,7 @@ describe 'invoice_items endpoint' do
     end
   end
 
-  context 'GET a invoice_item by attribute' do
+  context 'GET a invoice_item by quantity' do
     it 'returns an invoice_item' do
       create_list(:invoice_item, 3, item_id: Item.first.id, invoice_id: Invoice.first.id)
 
@@ -44,7 +44,7 @@ describe 'invoice_items endpoint' do
     end
   end
 
-  context 'GET invoice_items by attribute' do
+  context 'GET invoice_items by unit_price' do
     it 'returns invoice_items' do
       create_list(:invoice_item, 3, item_id: Item.first.id, invoice_id: Invoice.first.id, unit_price: 12345)
       create(:invoice_item, item_id: Item.first.id, invoice_id: Invoice.first.id, unit_price: 9876)

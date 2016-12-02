@@ -17,7 +17,7 @@ describe 'items endpoint' do
     end
   end
 
-  context 'GET a item' do
+  context 'GET an item' do
     it 'returns an item' do
       create_list(:item, 3, merchant_id: Merchant.first.id)
       get "/api/v1/items/#{Item.first.id}"
@@ -30,17 +30,21 @@ describe 'items endpoint' do
     end
   end
 
-  context 'GET a item by attribute' do
+  context 'GET an item by name' do
     it 'returns an item' do
       create_list(:item, 3, merchant_id: Merchant.first.id)
 
-      get "/api/v1/items/find?name=#{Item.first.created_at}"
       get "/api/v1/items/find?name=#{Item.first.name}"
 
       item = JSON.parse(response.body)
       expect(response).to be_success
       expect(item["name"]).to eq(Item.first.name)
+    end
+  end
 
+  context 'Find an item by ID' do
+    it 'returns an item' do
+      create(:item)
 
       get "/api/v1/items/find?id=#{Item.first.id}"
       item = JSON.parse(response.body)
@@ -50,7 +54,7 @@ describe 'items endpoint' do
     end
   end
 
-  context 'GET items by attribute' do
+  context 'GET items by name' do
     it 'returns items' do
       create_list(:item, 3, merchant_id: Merchant.first.id)
 
@@ -122,5 +126,4 @@ describe 'items endpoint' do
       expect(best_day).to eq("best_day" => "2016-12-01T00:00:00.000Z")
     end
   end
-
 end

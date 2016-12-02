@@ -8,10 +8,10 @@ class Merchant < ApplicationRecord
   def total_revenue(date = nil)
     if date
      invoices.joins(:invoice_items, :transactions).merge(Transaction.successful).where(created_at: date).sum("invoice_items.quantity * invoice_items.unit_price")
-   else
+    else
      invoices.joins(:transactions, :invoice_items).merge(Transaction.successful).sum("invoice_items.quantity * invoice_items.unit_price")
-   end
- end
+    end
+  end
 
   def self.most_items(num)
     joins(invoices: [:invoice_items, :transactions])

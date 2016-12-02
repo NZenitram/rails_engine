@@ -6,6 +6,7 @@ describe 'customer endpoint' do
     create_list(:merchant, 1)
     FactoryGirl.create(:invoice, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
   end
+
   context 'GET customers' do
     it 'returns a list of all customers' do
       create_list(:customer, 3)
@@ -63,8 +64,8 @@ describe 'customer endpoint' do
     end
   end
 
-  context "GET all customers by first_name" do
-    it 'returns a customer' do
+  context "GET all customers by id" do
+    it 'returns all customers by id' do
       create_list(:customer, 3)
       get "/api/v1/customers/find_all?id=#{Customer.first.id}"
 
@@ -76,7 +77,7 @@ describe 'customer endpoint' do
   end
 
   context "GET all customers by first_name" do
-    it 'returns a customer' do
+    it 'returns all customers by first name' do
       create_list(:customer, 3)
       get "/api/v1/customers/find_all?first_name=#{Customer.first.first_name}"
 
@@ -88,7 +89,7 @@ describe 'customer endpoint' do
   end
 
   context "GET all customers by last_name" do
-    it 'returns a customer' do
+    it 'returns all customers by last_name' do
       create_list(:customer, 3)
       get "/api/v1/customers/find_all?last_name=#{Customer.first.last_name}"
 
@@ -98,28 +99,4 @@ describe 'customer endpoint' do
       expect(customer.first["first_name"]).to eq(Customer.first.first_name)
     end
   end
-
-  # context "GET all customers by created_at" do
-  #   it 'returns a customer' do
-  #     create_list(:customer, 3)
-  #     get "/api/v1/customers/find_all?created_at=#{Customer.first.created_at}"
-  #
-  #     customer = JSON.parse(response.body)
-  #
-  #     expect(response).to be_success
-  #     expect(customer["first_name"]).to eq(Customer.first.first_name)
-  #   end
-  # end
-  #
-  # context "GET all customers by updated_at" do
-  #   it 'returns a customer' do
-  #     create_list(:customer, 3)
-  #     get "/api/v1/customers/find_all?updated_at=#{Customer.first.updated_at}"
-  #
-  #     customer = JSON.parse(response.body)
-  #
-  #     expect(response).to be_success
-  #     expect(customer["first_name"]).to eq(Customer.first.first_name)
-  #   end
-  # end
 end

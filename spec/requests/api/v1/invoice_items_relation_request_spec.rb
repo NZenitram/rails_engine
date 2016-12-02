@@ -8,6 +8,7 @@ describe 'invoice_items relation endpoint' do
     create(:item, merchant_id: Merchant.first.id)
     create(:invoice, merchant_id: Merchant.first.id, customer_id: Customer.first.id)
   end
+
   context 'GET invoice through invoice_items' do
     it 'returns an invoice' do
       create_list(:invoice_item, 3, item_id: Item.first.id ,invoice_id: Invoice.first.id)
@@ -20,6 +21,7 @@ describe 'invoice_items relation endpoint' do
       expect(invoice["id"]).to eq(Invoice.first.id)
     end
   end
+
   context "GET item through invoice_items" do
     it 'returns an item' do
       create_list(:invoice_item, 3, item_id: Item.first.id ,invoice_id: Invoice.first.id)
@@ -30,7 +32,6 @@ describe 'invoice_items relation endpoint' do
 
       expect(response).to be_success
       expect(item["id"]).to eq(Item.first.id)
-
     end
   end
 end

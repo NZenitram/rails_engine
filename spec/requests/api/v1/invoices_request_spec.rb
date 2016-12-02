@@ -5,7 +5,7 @@ describe 'invoice endpoint' do
     create(:customer)
     create(:merchant)
   end
-  context 'GET invoices' do
+  context 'GET all invoices' do
     it 'returns a list of all invoices' do
       create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
       get '/api/v1/invoices'
@@ -17,7 +17,7 @@ describe 'invoice endpoint' do
     end
   end
 
-  context 'GET a invoice' do
+  context 'GET an invoice' do
     it 'returns an invoice' do
       create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
       get "/api/v1/invoices/#{Invoice.first.id}"
@@ -29,7 +29,7 @@ describe 'invoice endpoint' do
     end
   end
 
-  context 'GET a invoice by parameter' do
+  context 'GET an invoice by parameter' do
     it 'returns and invoice' do
       create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
 
@@ -42,7 +42,7 @@ describe 'invoice endpoint' do
     end
   end
 
-  context 'GET invoices by attribute' do
+  context 'GET invoices by status' do
     it 'returns invoices' do
       create_list(:invoice, 3, customer_id: Customer.first.id, merchant_id: Merchant.first.id)
 

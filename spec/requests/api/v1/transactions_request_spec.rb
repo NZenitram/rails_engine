@@ -17,7 +17,7 @@ describe 'transaction endpoint' do
       expect(transactions.count).to eq(3)
     end
   end
-  #
+
   context 'GET a transaction' do
     it 'returns a transaction' do
       create_list(:transaction, 3, invoice_id: Invoice.first.id)
@@ -106,30 +106,4 @@ describe 'transaction endpoint' do
       expect(transaction.count).to eq(3)
     end
   end
-
-  context "GET all transactions by created_at" do
-    xit "returns the transactions" do
-      create_list(:transaction, 3, invoice_id: Invoice.first.id)
-
-      get "/api/v1/transactions/find_all?created_at=#{Transaction.first.created_at}"
-
-      transaction = JSON.parse(response.body)
-
-      expect(response).to be_success
-      expect(transaction.count).to eq(3)
-    end
-  end
-
-  # context "GET all merchants by params" do
-  #   it "returns the merchants" do
-  #     create_list(:transaction, 3, invoice_id: Invoice.first.id)
-  #
-  #     get "/api/v1/merchants/find_all?id=#{Transaction.first.updated_at}"
-  #
-  #     transaction = JSON.parse(response.body)
-  #
-  #     expect(response).to be_success
-  #     expect(transaction.count).to eq(3)
-  #   end
-  # end
 end
