@@ -7,4 +7,9 @@ class Customer < ApplicationRecord
       merchants.joins(:transactions).merge(Transaction.successful)
       .group(:id, :name).order("count(merchants.id) DESC").first
   end
+
+  def self.random
+    random = rand(Customer.count)
+    Customer.offset(random).first
+  end
 end

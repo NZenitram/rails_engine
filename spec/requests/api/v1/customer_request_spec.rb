@@ -18,7 +18,18 @@ describe 'customer endpoint' do
       expect(customers.count).to eq(4)
     end
   end
-  #
+
+  context 'GET a customer' do
+    it 'returns a customer' do
+      create_list(:customer, 3)
+      get "/api/v1/customers/random/"
+
+      customer = JSON.parse(response.body)
+      expect(response).to be_success
+      expect(customer["first_name"]).to eq(Customer.first.first_name)
+    end
+  end
+
   context 'GET a customer' do
     it 'returns a customer' do
       create_list(:customer, 3)
