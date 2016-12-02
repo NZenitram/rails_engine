@@ -1,24 +1,27 @@
-# README
+# Rails Engine
+A stores API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project Overview
+Rails Engine is our first project for the 3rd module at Turing School of Software and Design.
+Our learning goals for this project were:
 
-Things you may want to cover:
+* To build a versioned API with single responsability controllers
+* Use comprehensive TDD to drive our design
+* Practice comlpex Active Record queries to provide data of business value
+* Continue to expand our git workflow and ability to successfully divide tasks and work as a team
 
-* Ruby version
+## How To Run
+### Clone The Project
+` $ git clone https://github.com/NZenitram/rails_engine.git` 
 
-* System dependencies
+` $ rails_engine `
 
-* Configuration
+` $ bundle install `
 
-* Database creation
+## Seed The Database
 
-* Database initialization
+`$ rake seed_data`
 
-* How to run the test suite
+## Run Tests
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`$ rspec`
