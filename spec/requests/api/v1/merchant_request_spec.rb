@@ -77,32 +77,6 @@ describe 'merchant endpoint' do
     end
   end
 
-  context "GET all merchants by created_at" do
-    xit "returns the merchants" do
-      create_list(:merchant, 3)
-
-      get "/api/v1/merchants/find_all?created_at=#{Merchant.first.created_at}"
-
-      merchant = JSON.parse(response.body)
-
-      expect(response).to be_success
-      expect(merchant.count).to eq(3)
-    end
-  end
-
-  context "GET all merchants by updated_at" do
-    xit "returns the merchants" do
-      create_list(:merchant, 3)
-
-      get "/api/v1/merchants/find_all?updated_at=#{Merchant.first.updated_at}"
-
-      merchant = JSON.parse(response.body)
-
-      expect(response).to be_success
-      expect(merchant.count).to eq(3)
-    end
-  end
-
   context "GET total revenue for a merchant" do
     it "returns total_revenue" do
       create(:merchant)
